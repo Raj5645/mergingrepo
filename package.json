@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "start:dev": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
     "build": "vite build",
     "preview": "vite preview",
