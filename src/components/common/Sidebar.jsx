@@ -9,53 +9,12 @@ const Sidebar = () => {
     { 
       icon: "/images/img_sidashboardduotone.svg", 
       label: "Dashboard", 
-      path: "/dashboard", 
-      active: true 
+      path: "/dashboard" 
     },
     { 
       icon: "/images/img_clarityeventline.svg", 
-      label: "Event Detail", 
-      path: "/event-detail" 
-    },
-    { 
-      icon: "/images/img_streamlinebagrupee.svg", 
-      label: "Live Revenue", 
-      path: "/live-revenue" 
-    },
-    { 
-      icon: "/images/img_ionticketoutline.svg", 
-      label: "Ticketing", 
-      path: "/ticketing" 
-    },
-    { 
-      icon: "/images/img_heroiconsdocumentcurrencyrupee.svg", 
-      label: "Outreach", 
-      path: "/outreach" 
-    },
-    { 
-      icon: "/images/img_tablermessage.svg", 
-      label: "Notifications", 
-      path: "/notifications" 
-    },
-    { 
-      icon: "/images/img_fluentlearningapp20regular.svg", 
-      label: "Published Event", 
-      path: "/published-event" 
-    },
-    { 
-      icon: "/images/img_stashinvoice.svg", 
-      label: "Billing & Invoice", 
-      path: "/billing" 
-    },
-    { 
-      icon: "/images/img_materialsymbolslightdesignservices.svg", 
-      label: "Services", 
-      path: "/services" 
-    },
-    { 
-      icon: "/images/img_quillchat.svg", 
-      label: "Query", 
-      path: "/query" 
+      label: "Events", 
+      path: "/events" 
     }
   ];
 
@@ -72,14 +31,14 @@ const Sidebar = () => {
             key={index} 
             to={item.path}
             className={`flex items-center p-2 rounded-[6px] h-[31px] ${
-              item.active 
+              isActive(item.path) 
                 ? 'bg-gradient-to-r from-[#3479ff] to-[#22e6ce]' 
                 : 'bg-[#191919] shadow-[0px_0px_12px_#0000000f]'
             }`}
           >
             <img src={item.icon} alt={item.label} className="w-[18px] h-[18px]" />
             <span className={`ml-2 text-[14px] font-medium font-['Ruda'] ${
-              item.active ? 'text-white' : 'text-[#949494]'
+              isActive(item.path) ? 'text-white' : 'text-[#949494]'
             }`}>
               {item.label}
             </span>
