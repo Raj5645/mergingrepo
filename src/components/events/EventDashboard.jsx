@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../../components/common/Header';
+import Header from '../common/Header';
 import { Link } from 'react-router-dom';
 
 const sidebarItems = [
@@ -37,7 +37,7 @@ const pieData = [
   { label: 'Churned', value: 10, color: '#3479ff' },
 ];
 
-const EventAnalytics = () => {
+const EventDashboard = () => {
   const [growthType, setGrowthType] = useState('monthly');
 
   // Pie chart angles
@@ -236,4 +236,4 @@ const EventAnalytics = () => {
   );
 };
 
-export default EventAnalytics;
+export default EventDashboard;

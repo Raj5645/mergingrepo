@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../../common/Header';
+import Header from '../common/header2';
 import EventFilters from './EventFilters';
 
 const Events = () => {
@@ -77,7 +77,52 @@ const Events = () => {
   };
 
   const handleEventClick = (eventId) => {
-    navigate('/events/analytics');
+    // const token = localStorage.getItem('token');
+    const token =
+      'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzQ3OTk5NjUyLCJleHAiOjE3NDgwMDMyNTJ9.M5pnSEm6bQzYMAq6uF0D4OsUBPLwU3RGfhozM65RhiufUbwmo9VyREKGmtkzNepGTwiji0p_SEydtzX5hbl88A';
+    console.log('token in event api is:', token);
+
+    const eventData = {
+      id: 0,
+      name: 'test2305',
+      startDate: '2025-06-23',
+      endDate: '2025-06-26',
+      timings: 'test1',
+      venue: 'Mumbai',
+      thumbnail: 'image',
+    };
+
+    const authCheck = async () => {
+      try {
+        const response = await fetch('/api/event/save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(eventData),
+        });
+
+        if (response.status === 201) {
+          const data = await response.json();
+          console.log('Authorized data:', data);
+          // Use the authorized data
+          navigate('/eventdemo');
+        } else { 
+          // Unauthorized access
+          console.log('Unauthorized access');
+          // localStorage.removeItem('token');
+          // window.location.href = '/';
+        }
+      } catch (error) {
+        console.error('Error fetching data in authcheck', error);
+      }
+    };
+
+    authCheck();
+
+    // navigate('/eventdemo');
+    // navigate("/dashboard");
   };
 
   // Slide to the 4th event (index 3)
@@ -95,10 +140,7 @@ const Events = () => {
       <Header />
       <main className="container mx-auto px-4 py-6">
         <div className="flex justify-between items-center mb-6">
-          <EventFilters 
-            activeFilter={activeFilter} 
-            onFilterChange={handleFilterChange} 
-          />
+          <EventFilters activeFilter={activeFilter} onFilterChange={handleFilterChange} />
           <button
             onClick={handleCreateEvent}
             className="bg-gradient-to-r from-[#22e6ce] to-[#3479ff] rounded-lg px-6 py-2.5 text-lg font-bold text-white"
@@ -120,8 +162,8 @@ const Events = () => {
           style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {events
-            .filter(event => activeFilter === 'all' || event.status === activeFilter)
-            .map(event => (
+            .filter((event) => activeFilter === 'all' || event.status === activeFilter)
+            .map((event) => (
               <button
                 key={event.id}
                 onClick={() => handleEventClick(event.id)}
@@ -134,20 +176,18 @@ const Events = () => {
                     height: '450px',
                     overflow: 'hidden',
                     borderTopLeftRadius: '0.5rem',
-                    borderTopRightRadius: '0.5rem'
+                    borderTopRightRadius: '0.5rem',
                   }}
                   className="bg-[#232323]"
                 >
-                  <img 
-                    src={event.image} 
-                    alt={event.title} 
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 flex flex-col justify-between p-4">
                   <h3 className="text-xl font-bold text-white mb-2">{event.title}</h3>
                   <p className="text-sm text-[#949494] mb-1">{event.location}</p>
-                  <p className="text-sm text-[#949494] mb-1">{event.date.day}, {event.date.date} {event.date.month}</p>
+                  <p className="text-sm text-[#949494] mb-1">
+                    {event.date.day}, {event.date.date} {event.date.month}
+                  </p>
                   <p className="text-base text-[#22e6ce] font-semibold">{event.price}</p>
                   <p className="text-xs text-[#949494] mt-2">{event.lastEdited}</p>
                 </div>

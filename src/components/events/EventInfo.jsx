@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../common/Header';
 
-const EventDetail = () => {
+const EventInfo = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
 
@@ -68,4 +68,4 @@ const EventDetail = () => {
   );
 };
 
-export default EventDetail;
+export default EventInfo;

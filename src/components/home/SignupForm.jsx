@@ -14,7 +14,7 @@ const passwordStrength = (password) => {
 };
 
 const SignupForm = () => {
-  const [name, setName] = useState('');
+  const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -45,14 +45,14 @@ const SignupForm = () => {
     //   setEmailError('Invalid email');
     //   return;
     // }
-    if (!name) {
-      setSignupError('Name is required');
+    if (!username) {
+      setSignupError('username is required');
       return;
     }
-    if (password !== confirm) {
-      setSignupError('Passwords do not match');
-      return;
-    }
+    // if (password !== confirm) {
+    //   setSignupError('Passwords do not match');
+    //   return;
+    // }
     // if (passwordStrength(password) === 'Weak') {
     //   setSignupError('Password is too weak');
     //   return;
@@ -61,13 +61,25 @@ const SignupForm = () => {
     // ('');
 
     // try {
-    //   const res = await fetch('', {
+    //   const res = await fetch("/api/user/users/register", {
     //     method: 'POST',
     //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ name, email, password }),
+    //     body: JSON.stringify({ username, email, password }),
     //   });
     // //   const data = await res.json();
     //   if (res.ok ) {
+    //     const data = await res.json();
+
+    //     if(data && data.token)
+    //     {
+    //        console.log(data);
+    //        localStorage.setItem("token",data.token);
+    //     }
+    //     else
+    //     {
+    //       console.log("token not found");
+    //       return ;
+    //     }
     //     //     // Save userId or temp token if needed, then navigate
     //     // navigate('/otppage', { state: { userId: data.userId || data.tempId, email } });
     //     console.log("fetching success");
@@ -92,14 +104,14 @@ const SignupForm = () => {
       style={{ width: '496px', minWidth: '496px' }}
     >
       <span className="text-2xl font-bold text-white mb-8 uppercase tracking-wide">SIGNUP</span>
-      <label className="text-lg text-white font-medium mb-2" htmlFor="name">
-        Name
+      <label className="text-lg text-white font-medium mb-2" htmlFor="username">
+        User Name
       </label>
       <input
-        id="name"
+        id="username"
         type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={username}
+        onChange={(e) => setUserName(e.target.value)}
         className="mb-2 px-4 py-2 rounded-lg bg-[#191919] text-white text-base outline-none"
         style={{ width: '414.92px', minWidth: '414.92px' }}
         required
