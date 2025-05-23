@@ -9,12 +9,13 @@ const Sidebar = () => {
     { 
       icon: "/images/img_sidashboardduotone.svg", 
       label: "Dashboard", 
-      path: "/dashboard" 
+      path: "/dashboard", 
+      active: true 
     },
     { 
       icon: "/images/img_clarityeventline.svg", 
-      label: "Events", 
-      path: "/events" 
+      label: "Event Detail", 
+      path: "/event-details" 
     },
     { 
       icon: "/images/img_streamlinebagrupee.svg", 
@@ -43,44 +44,38 @@ const Sidebar = () => {
     },
     { 
       icon: "/images/img_stashinvoice.svg", 
-      label: "Billing", 
+      label: "Billing & Invoice", 
       path: "/billing" 
     },
     { 
       icon: "/images/img_materialsymbolslightdesignservices.svg", 
+      label: "Design Services", 
+      path: "/design-services" 
+    },
+    { 
+      icon: "/images/img_quillchat.svg", 
       label: "Support", 
       path: "/support" 
-    }
+    },
   ];
 
   return (
-    <div className="bg-[#171717] w-[165px] h-full rounded-[12px] p-4 flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-[14px] font-[900] text-white font-['Ruda']">Live and Loud</h2>
-        <img src="/images/img_riexpandleftfill.svg" alt="Collapse" className="w-[14px] h-[14px]" />
-      </div>
-      
-      <div className="flex flex-col space-y-2">
-        {menuItems.map((item, index) => (
-          <Link 
-            key={index} 
-            to={item.path}
-            className={`flex items-center p-2 rounded-[6px] h-[31px] ${
-              isActive(item.path) 
-                ? 'bg-gradient-to-r from-[#3479ff] to-[#22e6ce]' 
-                : 'bg-[#191919] shadow-[0px_0px_12px_#0000000f]'
-            }`}
-          >
-            <img src={item.icon} alt={item.label} className="w-[18px] h-[18px]" />
-            <span className={`ml-2 text-[14px] font-medium font-['Ruda'] ${
-              isActive(item.path) ? 'text-white' : 'text-[#949494]'
-            }`}>
-              {item.label}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
+    <nav className="flex flex-col py-8 px-4 h-full w-full">
+      {menuItems.map((item) => (
+        <Link
+          key={item.path}
+          to={item.path}
+          className={`flex items-center gap-3 px-4 py-3 my-1 rounded-lg transition-colors font-semibold text-base
+            ${isActive(item.path)
+              ? 'bg-gradient-to-r from-[#22e6ce] to-[#3479ff] text-white shadow-lg'
+              : 'text-gray-300 hover:bg-[#232323] hover:text-white'}
+          `}
+        >
+          <img src={item.icon} alt={item.label} className="w-6 h-6" />
+          <span>{item.label}</span>
+        </Link>
+      ))}
+    </nav>
   );
 };
 

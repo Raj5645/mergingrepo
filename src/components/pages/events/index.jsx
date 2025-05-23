@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../../components/common/Header';
+import Header from '../../common/Header';
 import EventFilters from './EventFilters';
 
 const Events = () => {

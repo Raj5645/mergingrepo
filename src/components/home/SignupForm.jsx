@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,12 +30,12 @@ const SignupForm = () => {
   const handlePasswordChange = (val) => {
     setPassword(val);
     setStrength(passwordStrength(val));
-    setPasswordMatch(val === confirm ? 'match' : (confirm ? 'no-match' : ''));
+    setPasswordMatch(val === confirm ? 'match' : confirm ? 'no-match' : '');
   };
 
   const handleConfirmChange = (val) => {
     setConfirm(val);
-    setPasswordMatch(password === val ? 'match' : (val ? 'no-match' : ''));
+    setPasswordMatch(password === val ? 'match' : val ? 'no-match' : '');
   };
 
   const handleSignup = async (e) => {
@@ -58,28 +57,32 @@ const SignupForm = () => {
     //   setSignupError('Password is too weak');
     //   return;
     // }
-    setLoading(true);''
+    // setLoading(true);
+    // ('');
 
-    
-    try {
-      const res = await fetch("", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
-      });
-      // const data = await res.json();
-      if (res.ok ) {
-    //     // Save userId or temp token if needed, then navigate
-        // navigate('/otppage', { state: { userId: data.userId || data.tempId, email } });
+    // try {
+    //   const res = await fetch('', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ name, email, password }),
+    //   });
+    // //   const data = await res.json();
+    //   if (res.ok ) {
+    //     //     // Save userId or temp token if needed, then navigate
+    //     // navigate('/otppage', { state: { userId: data.userId || data.tempId, email } });
+    //     console.log("fetching success");
         navigate('/otppage');
-      } else {
-        setSignupError(data.message || 'Signup failed');
-      }
-    } catch (err) {
-      setSignupError('Network error');
-    } finally {
-      setLoading(false);
-    }
+    //   } else {
+    //     console.log("response failed");
+    //     setSignupError('Signup failed');
+    //   }
+    // } catch (err) {
+    //     console.log("fetching failed",err);
+    //   setSignupError('Network error');
+    // } finally {
+    //   setLoading(false);
+    // }
+
   };
 
   return (
@@ -89,54 +92,71 @@ const SignupForm = () => {
       style={{ width: '496px', minWidth: '496px' }}
     >
       <span className="text-2xl font-bold text-white mb-8 uppercase tracking-wide">SIGNUP</span>
-      <label className="text-lg text-white font-medium mb-2" htmlFor="name">Name</label>
+      <label className="text-lg text-white font-medium mb-2" htmlFor="name">
+        Name
+      </label>
       <input
         id="name"
         type="text"
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
         className="mb-2 px-4 py-2 rounded-lg bg-[#191919] text-white text-base outline-none"
         style={{ width: '414.92px', minWidth: '414.92px' }}
         required
       />
-      <label className="text-lg text-white font-medium mb-2" htmlFor="email">Email</label>
+      <label className="text-lg text-white font-medium mb-2" htmlFor="email">
+        Email
+      </label>
       <input
         id="email"
         type="email"
         value={email}
-        onChange={e => { setEmail(e.target.value); setEmailError(''); }}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          setEmailError('');
+        }}
         className="mb-2 px-4 py-2 rounded-lg bg-[#191919] text-white text-base outline-none"
         style={{ width: '414.92px', minWidth: '414.92px' }}
         required
       />
       {emailError && <span className="text-red-500 text-xs mb-2">{emailError}</span>}
-      <label className="text-lg text-white font-medium mt-4 mb-2" htmlFor="password">Password</label>
+      <label className="text-lg text-white font-medium mt-4 mb-2" htmlFor="password">
+        Password
+      </label>
       <input
         id="password"
         type="password"
         value={password}
-        onChange={e => handlePasswordChange(e.target.value)}
+        onChange={(e) => handlePasswordChange(e.target.value)}
         className="mb-2 px-4 py-2 rounded-lg bg-[#191919] text-white text-base outline-none"
         style={{ width: '414.92px', minWidth: '414.92px' }}
         required
       />
       {strength && (
-        <span className={`text-xs mb-2 ${strength === 'Strong' ? 'text-green-500' : strength === 'Medium' ? 'text-yellow-400' : 'text-red-500'}`}>
-  Password strength: {strength}
-</span>
+        <span
+          className={`text-xs mb-2 ${strength === 'Strong' ? 'text-green-500' : strength === 'Medium' ? 'text-yellow-400' : 'text-red-500'}`}
+        >
+          Password strength: {strength}
+        </span>
       )}
-      <label className="text-lg text-white font-medium mt-4 mb-2" htmlFor="confirm">Confirm Password</label>
+      <label className="text-lg text-white font-medium mt-4 mb-2" htmlFor="confirm">
+        Confirm Password
+      </label>
       <input
         id="confirm"
         type="password"
         value={confirm}
-        onChange={e => handleConfirmChange(e.target.value)}
+        onChange={(e) => handleConfirmChange(e.target.value)}
         className="mb-2 px-4 py-2 rounded-lg bg-[#191919] text-white text-base outline-none"
         style={{ width: '414.92px', minWidth: '414.92px' }}
         required
       />
-      {passwordMatch === 'match' && <span className="text-green-500 text-xs mb-2">Passwords match</span>}
-      {passwordMatch === 'no-match' && <span className="text-red-500 text-xs mb-2">Passwords do not match</span>}
+      {passwordMatch === 'match' && (
+        <span className="text-green-500 text-xs mb-2">Passwords match</span>
+      )}
+      {passwordMatch === 'no-match' && (
+        <span className="text-red-500 text-xs mb-2">Passwords do not match</span>
+      )}
       {signupError && <span className="text-red-500 text-xs mb-2">{signupError}</span>}
       <button
         type="submit"

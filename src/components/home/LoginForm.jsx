@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +29,7 @@ const LoginForm = () => {
     //   const data = await res.json();
     //   if (res.ok && data.token) {
     //     localStorage.setItem('authToken', data.token);
-        // navigate('/events');
+        navigate('/events');
     //   } else {
     //     setLoginError(data.message || 'Login failed');
     //   }

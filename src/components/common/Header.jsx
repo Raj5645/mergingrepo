@@ -32,7 +32,7 @@ const Header = () => (
           <span className="text-[20px] font-medium text-[#949494] font-sans">Join Us</span>
         </div>
       </Link>
-      <Link to="/contact-us">
+      <Link to="/contact">
         <div className="px-4 py-2 rounded-[12px] bg-gradient-to-r from-[#3980ed] to-[#04ffff] shadow-[0px_0px_12px_rgba(0,0,0,0.06)]">
           <span className="text-[20px] font-medium text-white font-sans">Contact Us</span>
         </div>
