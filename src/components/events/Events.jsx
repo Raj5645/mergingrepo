@@ -78,51 +78,51 @@ const Events = () => {
 
   const handleEventClick = (eventId) => {
     // const token = localStorage.getItem('token');
-    const token =
-      'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzQ3OTk5NjUyLCJleHAiOjE3NDgwMDMyNTJ9.M5pnSEm6bQzYMAq6uF0D4OsUBPLwU3RGfhozM65RhiufUbwmo9VyREKGmtkzNepGTwiji0p_SEydtzX5hbl88A';
-    console.log('token in event api is:', token);
+    // const token =
+    //   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzQ3OTk5NjUyLCJleHAiOjE3NDgwMDMyNTJ9.M5pnSEm6bQzYMAq6uF0D4OsUBPLwU3RGfhozM65RhiufUbwmo9VyREKGmtkzNepGTwiji0p_SEydtzX5hbl88A';
+    // console.log('token in event api is:', token);
 
-    const eventData = {
-      id: 0,
-      name: 'test2305',
-      startDate: '2025-06-23',
-      endDate: '2025-06-26',
-      timings: 'test1',
-      venue: 'Mumbai',
-      thumbnail: 'image',
-    };
+    // const eventData = {
+    //   id: 0,
+    //   name: 'test2305',
+    //   startDate: '2025-06-23',
+    //   endDate: '2025-06-26',
+    //   timings: 'test1',
+    //   venue: 'Mumbai',
+    //   thumbnail: 'image',
+    // };
 
-    const authCheck = async () => {
-      try {
-        const response = await fetch('/api/event/save', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(eventData),
-        });
+    // const authCheck = async () => {
+    //   try {
+    //     const response = await fetch('/api/event/save', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         authorization: `Bearer ${token}`,
+    //       },
+    //       body: JSON.stringify(eventData),
+    //     });
 
-        if (response.status === 201) {
-          const data = await response.json();
-          console.log('Authorized data:', data);
-          // Use the authorized data
-          navigate('/eventdemo');
-        } else { 
-          // Unauthorized access
-          console.log('Unauthorized access');
-          // localStorage.removeItem('token');
-          // window.location.href = '/';
-        }
-      } catch (error) {
-        console.error('Error fetching data in authcheck', error);
-      }
-    };
+    //     if (response.status === 201) {
+    //       const data = await response.json();
+    //       console.log('Authorized data:', data);
+    //       // Use the authorized data
+    //       navigate('/eventdemo');
+    //     } else { 
+    //       // Unauthorized access
+    //       console.log('Unauthorized access');
+    //       // localStorage.removeItem('token');
+    //       // window.location.href = '/';
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching data in authcheck', error);
+    //   }
+    // };
 
-    authCheck();
+    // authCheck();
 
     // navigate('/eventdemo');
-    // navigate("/dashboard");
+    navigate("/dashboard");
   };
 
   // Slide to the 4th event (index 3)

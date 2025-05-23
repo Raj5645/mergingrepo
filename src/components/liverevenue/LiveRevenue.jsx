@@ -1,7 +1,7 @@
 import React from "react";
 import { PieChart } from "react-minimal-pie-chart";
-import Sidebar from './sidebar/Sidebar';
-import Header from './common/Header';
+import Sidebar from "../common/Sidebar";
+import Header from "../common/header2";
 
 const ticketData = [
   { label: "bookmyshow", value: 5816, color: "#FF6A00" }, // orange

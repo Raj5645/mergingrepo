@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from './common/Sidebar';
+import Sidebar from "../common/Sidebar";
 
 const themeBlue = "bg-gradient-to-r from-[#22e6ce] to-[#3479ff]";
 

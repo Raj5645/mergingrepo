@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from './common/Sidebar';
-import Header from './common/Header';
+import Sidebar from "../common/Sidebar";
+import Header from "../common/header2";
 
 class Support extends React.Component {
   constructor(props) {

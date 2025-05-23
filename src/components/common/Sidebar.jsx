@@ -13,13 +13,13 @@ const Sidebar = () => {
     },
     { 
       icon: "/images/img_clarityeventline.svg", 
-      label: "Events", 
-      path: "/events" 
+      label: "EventDetails", 
+      path: "/eventdetails" 
     },
     { 
       icon: "/images/img_streamlinebagrupee.svg", 
       label: "Live Revenue", 
-      path: "/live-revenue" 
+      path: "/liverevenue" 
     },
     { 
       icon: "/images/img_ionticketoutline.svg", 
@@ -39,7 +39,7 @@ const Sidebar = () => {
     { 
       icon: "/images/img_fluentlearningapp20regular.svg", 
       label: "Published Event", 
-      path: "/published-event" 
+      path: "/publishedevent" 
     },
     { 
       icon: "/images/img_stashinvoice.svg", 

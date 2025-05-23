@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Sidebar from './common/Sidebar';
-import Header from './common/Header';
+import Sidebar from "../common/Sidebar";
+import Header from "../common/header2";
 
 const themeBlue = "bg-gradient-to-r from-[#22e6ce] to-[#3479ff]";
 const themeBlueText = "text-[#3479ff]";

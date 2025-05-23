@@ -50,9 +50,9 @@ const Card = ({
       <div className="p-4">
         <div className="flex items-start space-x-4">
           <div className="bg-[#313131] rounded px-2 py-1 text-center">
-            <p className="text-xs text-[#949494]">{date.day}</p>
+            {/* <p className="text-xs text-[#949494]">{date.day}</p>
             <p className="text-xl font-black text-white">{date.date}</p>
-            <p className="text-xs font-semibold text-[#949494]">{date.month}</p>
+            <p className="text-xs font-semibold text-[#949494]">{date.month}</p> */}
           </div>
           
           <div className="flex-1">

@@ -5,12 +5,13 @@ import HomePage from './components/home/HomePage';
 import Events from './components/events/Events';
 import EventDetails from './components/eventdetails/EventDetails';
 import Dashboard from './components/dashboard/Dashboard';
-// import FolderView from './components/pages/events/eventDetails/FolderView';
-// import NewFeature from './components/NewFeature';
-// import RepositoryDashboard from './components/pages/events/RepositoryDashboard';
-// import CreateEvent from './components/pages/events/CreateEvent';
-// import EventAnalytics from './components/event/EventAnalytics';
-import EventDemo from './components/events/EventDemo';
+import Billing from './components/billing/Billing';
+import LiveRevenue from './components/liverevenue/LiveRevenue';
+import Notifications from './components/notification/Notifications';
+import Outreach from './components/outreach/Outreach';
+import Ticketing from './components/ticketing/Ticketing';
+import PublishedEvent from './components/publishedevent/PublishedEvent';
+import Support from './components/support/Support';
 import ContactUs from './components/common/ContactUs';
 import LoginForm from './components/home/LoginForm';
 import SignupForm from './components/home/SignupForm';
@@ -26,14 +27,17 @@ class AppRoutes extends React.Component {
           <Route path="loginform" element={<LoginForm/>}/>
           <Route path="signupform" element={<SignupForm/>}/>
           <Route path="otppage" element={<OtpPage/>}/>
-          <Route path="eventdemo" element={<EventDemo/>}/>
+          {/* <Route path="eventdemo" element={<EventDemo/>}/> */}
           <Route path="/eventdetails" element={<EventDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/folder-view" element={<FolderView />} /> */}
-          {/* <Route path="/new-feature" element={<NewFeature />} /> */}
-          {/* <Route path="/repository-dashboard" element={<RepositoryDashboard />} /> */}
-          {/* <Route path="/create-event" element={<CreateEvent />} /> */}
-          {/* <Route path="/event-analytics" element={<EventAnalytics />} /> */}
+          <Route path="/eventdetails" element={<EventDetails/>}/>
+          <Route path="/liverevenue" element={<LiveRevenue/>}/>
+          <Route path="/ticketing" element={<Ticketing/>}/>
+          <Route path="/billing" element={<Billing/>}/>
+          <Route path="/outreach" element={<Outreach/>}/>
+          <Route path="/notifications" element={<Notifications/>}/>
+          <Route path="/publishedevent" element={<PublishedEvent/>}/>
+          <Route path="/support"  element={<Support/>}/>
           <Route path="/contactus" element={<ContactUs />} />
         </Routes>
       </Router>

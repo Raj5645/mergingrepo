@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from './common/Sidebar';
-import Header from './common/Header';
+import Sidebar from "../common/Sidebar";
+import Header from "../common/header2";
 
 const initialRows = [
   { category: "VIP", description: "Front row seats", count: 50, price: 2000 },
