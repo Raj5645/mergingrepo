@@ -14,6 +14,40 @@ const ticketData = [
 const totalTickets = ticketData.reduce((sum, t) => sum + t.value, 0);
 
 class LiveRevenue extends React.Component {
+
+  // useEffect(()=>{
+
+  //   const getData = async () =>{
+
+  //     try {
+  //       const response = await fetch("",{
+  //         method:"GET",
+  //         headers:{
+  //           "Content-Type": "apllication/json";
+  //         },
+  //         body: JSON.stringify();
+  //       });
+
+  //       if(!response.ok)
+  //       {
+  //          console.log("in metrics response  not fetched");
+  //          return ;
+  //       }
+
+
+  //     } catch (error) {
+  //       console.log("error in metricsection is:", error);
+  //     }
+  // getData();
+
+  //   }
+
+
+  // },[]);
+
+
+
+
   render() {
     return (
       <div className="min-h-screen flex bg-gradient-to-b from-[#171717] to-black text-white font-['Inter','Poppins',sans-serif]">

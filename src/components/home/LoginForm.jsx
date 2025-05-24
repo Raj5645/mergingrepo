@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-  const [username, setUserName] =useState("");
+  const [email, setEmail] =useState("");
+  // const [name, setName] = useState("");
   // const [email, setEmail] = useState('');
   // const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -22,42 +23,42 @@ const LoginForm = () => {
     // setLoginError('');
     
 
-    try {
-      const res = await fetch("/api/user/auth/login", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+    // try {
+    //   const res = await fetch("/api/user/auth/login", {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ email, password }),
+    //   });
       // const data = await res.json();
       // if (res.ok) {
       //   localStorage.setItem('authToken', data.token);
-      //   navigate('/events');
+        navigate('/events');
       // } else {
       //   setLoginError('Login failed');
       // }
-      if(!res.ok)
-      {
-        setLoginError('Login failed');
-      }
+      // if(!res.ok)
+      // {
+      //   setLoginError('Login failed');
+      // }
 
-      const data = await res.json();
-      if(!data)
-      {
-         console.log("No response data");
-      }
+      // const data = await res.json();
+      // if(!data)
+      // {
+      //    console.log("No response data");
+      // }
 
-      console.log("login response data:", data);
+      // console.log("login response data:", data);
 
-      if(data.data.token)
-      {
-        console.log("token is:", data.data.token);
-        localStorage.setItem('token', data.data.token);
-      }
-      navigate('/events');
+      // if(data.data.token)
+    //   {
+    //     console.log("token is:", data.data.token);
+    //     localStorage.setItem('token', data.data.token);
+    //   }
+    //   navigate('/events');
 
-    } catch (err) {
-      setLoginError('Network error');
-    }
+    // } catch (err) {
+    //   setLoginError('Network error');
+    // }
 
 
   };
@@ -69,20 +70,20 @@ const LoginForm = () => {
       style={{ width: '496px', minWidth: '496px' }}
     >
       <span className="text-2xl font-bold text-white mb-8 uppercase tracking-wide">LOGIN</span>
-      <label className="text-lg text-white font-medium mb-2" htmlFor="username">UserName</label>
+      <label className="text-lg text-white font-medium mb-2" htmlFor="email">Email</label>
       <input
-        id="username"
-        type="text"
-        value={username}
-        onChange={e => { setUserName(e.target.value)}}
+        id="email"
+        type="email"
+        value={email}
+        onChange={e => { setEmail(e.target.value)}}
         className="mb-2 px-4 py-2 rounded-lg bg-[#191919] text-white text-base outline-none"
         style={{ width: '414.92px', minWidth: '414.92px' }}
         required
       />
 
       {/* <input
-        id="name"
-        type="name"
+        // id="name"
+        type="text"
         value={name}
         onChange={e => { setName(e.target.value)}}
         className="mb-2 px-4 py-2 rounded-lg bg-[#191919] text-white text-base outline-none"

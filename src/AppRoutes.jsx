@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from './components/home/HomePage';
 import Events from './components/events/Events';
+import CreateEvent from './components/events/CreateEvent';
 import EventDetails from './components/eventdetails/EventDetails';
 import Dashboard from './components/dashboard/Dashboard';
 import Billing from './components/billing/Billing';
@@ -24,6 +25,7 @@ class AppRoutes extends React.Component {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/createevent" element={<CreateEvent/>}/>
           <Route path="loginform" element={<LoginForm/>}/>
           <Route path="signupform" element={<SignupForm/>}/>
           <Route path="otppage" element={<OtpPage/>}/>

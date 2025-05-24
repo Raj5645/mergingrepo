@@ -7,10 +7,37 @@ const ChartsSection = () => {
   const registrationChartRef = useRef(null);
 
   // Simulate chart rendering with images from the design
-  useEffect(() => {
-    // In a real implementation, you would use a charting library like Chart.js
-    // For this example, we'll just display the images from the design
-  }, []);
+ // useEffect(()=>{
+
+  //   const getData = async () =>{
+
+  //     try {
+  //       const response = await fetch("",{
+  //         method:"GET",
+  //         headers:{
+  //           "Content-Type": "apllication/json";
+  //         },
+  //         body: JSON.stringify();
+  //       });
+
+  //       if(!response.ok)
+  //       {
+  //          console.log("in metrics response  not fetched");
+  //          return ;
+  //       }
+
+
+  //     } catch (error) {
+  //       console.log("error in metricsection is:", error);
+  //     }
+
+  //   }
+
+  // getData();
+
+
+  // },[]);
+
 
   return (
     <div className="grid grid-cols-12 gap-4">

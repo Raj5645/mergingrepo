@@ -1,79 +1,76 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../common/header2';
 import EventFilters from './EventFilters';
 
 const Events = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [events, setEvents] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
   const scrollRef = useRef(null);
 
-  // Mock event data
-  const events = [
-    {
-      id: '1',
-      image: '/images/img_image_9.png',
-      date: {
-        day: 'Sat',
-        date: '16',
-        month: 'May',
-      },
-      title: 'Live and Loud',
-      price: '₹1000 - ₹9000',
-      location: 'Bangalore',
-      status: 'Live',
-      lastEdited: 'last edited : 07/04/25 ; 20:35:08',
-    },
-    {
-      id: '2',
-      image: '/images/img_image.png',
-      date: {
-        day: 'Sat',
-        date: '16',
-        month: 'May',
-      },
-      title: 'Live and Loud',
-      price: '₹1000 - ₹9000',
-      location: 'Bangalore',
-      status: 'Past',
-      lastEdited: 'last edited : 07/04/25 ; 20:35:08',
-    },
-    {
-      id: '3',
-      image: '/images/img_image_10.png',
-      date: {
-        day: 'Sat',
-        date: '16',
-        month: 'May',
-      },
-      title: 'Live and Loud',
-      price: '₹1000 - ₹9000',
-      location: 'Bangalore',
-      status: 'Draft',
-      lastEdited: 'last edited : 07/04/25 ; 20:35:08',
-    },
-    {
-      id: '4',
-      image: '/images/img_image_10_422x324.png',
-      date: {
-        day: 'Sat',
-        date: '16',
-        month: 'May',
-      },
-      title: 'Live and Loud',
-      price: '₹1000 - ₹9000',
-      location: 'Bangalore',
-      status: 'Live',
-      lastEdited: 'last edited : 07/04/25 ; 20:35:08',
-    },
-  ];
+
+  // useEffect(()=>{
+
+  //   const getEvents = async () =>{
+
+  //     try {
+  //       const response = await fetch("");
+
+  //       if(!response.ok)
+  //       {
+  //          console.log("response got failed")
+  //          return ;
+  //       }
+
+  //       const data = await response.json();
+  //       if(!data)
+  //       {
+  //         console.log(data);
+  //         return ;
+  //       }
+  //       setEvents(data);
+  //     } catch (error) {
+  //       console.log("error of fetching events from backend", error);
+  //     }
+
+  //   }
+
+  //   getEvents();
+
+  // },[events]);
+
+
+useEffect(() => {
+  const storedEvents = JSON.parse(localStorage.getItem('events')) || [];
+  setEvents(storedEvents);
+}, []);
+
+
+  useEffect(() => {
+  const stored = JSON.parse(localStorage.getItem('events')) || [];
+
+  if (location.state?.newEvent) {
+    console.log("step-1");
+    const updated = [...stored, location.state.newEvent];
+    setEvents(updated);
+    localStorage.setItem('events', JSON.stringify(updated));
+  } else {
+    console.log("step-2")
+    setEvents(stored);
+  }
+  console.log("after creating event then Event component renders");
+}, [location.state]);
+
+
 
   const handleFilterChange = (filter) => {
     setActiveFilter(filter);
   };
 
   const handleCreateEvent = () => {
-    navigate('/events/create');
+    navigate('/createevent');
   };
 
   const handleEventClick = (eventId) => {

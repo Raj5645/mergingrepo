@@ -4,6 +4,37 @@ import Sidebar from "../common/Sidebar";
 const themeBlue = "bg-gradient-to-r from-[#22e6ce] to-[#3479ff]";
 
 const Billing = () => {
+
+  // useEffect(()=>{
+
+  //   const getData = async () =>{
+
+  //     try {
+  //       const response = await fetch("",{
+  //         method:"GET",
+  //         headers:{
+  //           "Content-Type": "apllication/json";
+  //         },
+  //         body: JSON.stringify();
+  //       });
+
+  //       if(!response.ok)
+  //       {
+  //          console.log("in metrics response  not fetched");
+  //          return ;
+  //       }
+
+
+  //     } catch (error) {
+  //       console.log("error in metricsection is:", error);
+  //     }
+  // getData();
+
+  //   }
+
+
+  // },[]);
+
   return (
     <div className="min-h-screen flex bg-gradient-to-b from-[#232323] to-black text-white font-['Inter','Poppins',sans-serif]">
       {/* Sidebar */}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Header from '../../common/Header';
+import { useNavigate } from 'react-router-dom';
+import Header from '../common/header2';
 
 const CreateEvent = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,7 @@ const CreateEvent = () => {
   });
 
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,8 +20,52 @@ const CreateEvent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would send form data to your backend or state management
+    
+    const newEvent = {
+      id: Date.now().toString(),
+      title: form.title,
+      date: form.date,
+      location: form.location,
+      price: form.price,
+      description: form.description,
+      image: '/images/default.png',
+      status: 'Draft',
+      lastEdited: new Date().toLocaleString(),
+    };
     setSuccess(true);
+    
+
+    // const authCheck = async () => {
+    //   try {
+    //     const response = await fetch('/api/event/save', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         authorization: `Bearer ${token}`,
+    //       },
+    //       body: JSON.stringify(eventData),
+    //     });
+
+    //     if (response.status === 201) {
+    //       const data = await response.json();
+    //       console.log('Authorized data:', data);
+    //       // Use the authorized data
+    //       navigate('/eventdemo');
+    //     } else { 
+    //       // Unauthorized access
+    //       console.log('Unauthorized access');
+    //       // localStorage.removeItem('token');
+    //       // window.location.href = '/';
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching data in authcheck', error);
+    //   }
+    // };
+
+    // authCheck();
+
+
+    navigate('/events', { state: { newEvent } });
   };
 
   return (
