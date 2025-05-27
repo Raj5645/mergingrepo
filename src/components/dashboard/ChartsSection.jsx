@@ -161,7 +161,7 @@ const ChartsSection = () => {
             
             <div className="absolute left-[57px] top-0 grid grid-cols-4 gap-x-16 w-[290px]">
               <div className="flex flex-col items-center">
-                <img src="/images/img_1.png" alt="Week 1 Chart" className="w-[61px] h-[147px]" />
+                <img src="" alt="Week 1 Chart" className="w-[61px] h-[147px]" />
                 <p className="text-[13px] text-[#8a8a8a] font-['Ruda'] mt-2">Week 1</p>
               </div>
               <div className="flex flex-col items-center">

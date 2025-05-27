@@ -11,7 +11,7 @@ import HeroContent from './HeroContent';
 const HomePage = () => {
   // Render the home page layout
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#171717] to-black text-white"> {/* Main container with background gradient */}
+    <div className="min-h-screen bg-gradient-to-b pt-[85px] from-[#171717] to-black text-white"> {/* Main container with background gradient */}
       <Header /> {/* Top navigation/header */}
       <main className="relative"> {/* Main content area */}
         <EventBackground /> {/* Event background images */}

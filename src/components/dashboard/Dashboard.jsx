@@ -6,7 +6,7 @@ import ChartsSection from './ChartsSection';
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#171717] to-[#000000] text-white">
+    <div className="min-h-screen bg-gradient-to-b pt-[85px] from-[#171717] to-[#000000] text-white">
       <Header />
       
       <div className="flex">

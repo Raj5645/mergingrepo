@@ -36,7 +36,7 @@ const Billing = () => {
   // },[]);
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-b from-[#232323] to-black text-white font-['Inter','Poppins',sans-serif]">
+    <div className="min-h-screen flex bg-gradient-to-b pt-[85px] from-[#232323] to-black text-white font-['Inter','Poppins',sans-serif]">
       {/* Sidebar */}
       <div className="w-[220px] min-h-screen bg-[#171717]">
         <Sidebar />
