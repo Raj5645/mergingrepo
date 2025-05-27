@@ -48,11 +48,11 @@ const LoginForm = () => {
 
       console.log("login response data:", data);
 
-      if(data.data.token)
-      {
-        console.log("token is:", data.data.token);
-        localStorage.setItem('token', data.data.token);
-      }
+      // if(data.data.token)
+      // {
+      //   console.log("token is:", data.data.token);
+      //   localStorage.setItem('token', data.data.token);
+      // }
       navigate('/events');
 
     } catch (err) {
