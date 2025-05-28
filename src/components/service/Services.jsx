@@ -97,56 +97,56 @@ const Services = () => {
   };
 
   return (
-    <div className="min-h-screen flex  pt-[85px] from-[#232323] to-black text-white font-['Inter','Poppins',sans-serif]">
-      {/* Sidebar */}
-      <div className="w-[220px] min-h-screen bg-[#171717]">
-        <Sidebar />
-      </div>
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-8">
-        <Header />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className="relative flex flex-col mx-auto p-8"
-            style={{
-              width: "1198px",
-              minHeight: "742px",
-              background: "rgba(255,255,255,0.05)",
-              borderRadius: "24px",
-            }}
-          >
-            <h1 className="text-[28.11px] font-bold mb-4" style={{ width: "310.67px" }}>
-              Services
-            </h1>
-            <h2
-              className="text-[#C3C3C3] text-[24px] mb-6"
-              style={{ width: "106px" }}
-            >
-              All Services
-            </h2>
+   <div className="min-h-screen bg-black text-white font-['Inter','Poppins',sans-serif]">
+  <div className="flex pt-[85px] min-h-screen">
+    {/* Sidebar */}
+    <div className="w-[220px] min-h-screen bg-[#171717] hidden lg:block">
+      <Sidebar />
+    </div>
 
-            <div className="grid grid-cols-4 gap-6">
-              {services.map((service, index) => (
-                <div
-                  key={index}
-                  className="bg-[#212121] w-[203.19px] h-[175.41px] rounded-[16px] flex flex-col justify-center items-center relative cursor-pointer"
-                  onClick={() => handleServiceClick(service)}
-                >
-                  <img src={service.icon} alt="icon" className="mb-4 w-10 h-10" />
-                  <h3 className="text-lg font-semibold text-center">{service.title}</h3>
-                  <p className="text-sm text-center px-2">{service.desc}</p>
-                </div>
-              ))}
-              {/* Add Service Button as a Service Card */}
-             
-                <img src={addserviceimg} alt="add" className="w-[120px] h-[50px] flex flex-col justify-center items-center" />
+    {/* Main Content */}
+    <div className="flex-1 flex flex-col">
+      <Header />
 
-            </div>
+      <div className="flex-1 px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div
+          className="relative flex flex-col mx-auto p-6 sm:p-8 w-full max-w-screen-xl"
+          style={{
+            background: "rgba(255,255,255,0.05)",
+            borderRadius: "24px",
+          }}
+        >
+          <h1 className="text-[24px] sm:text-[28px] font-bold mb-2 sm:mb-4">
+            Services
+          </h1>
+          <h2 className="text-[#C3C3C3] text-[20px] sm:text-[24px] mb-6 whitespace-nowrap">
+            All Services
+          </h2>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="bg-[#212121] rounded-[16px] flex flex-col justify-center items-center cursor-pointer p-4 h-[175px]"
+                onClick={() => handleServiceClick(service)}
+              >
+                <img src={service.icon} alt="icon" className="mb-4 w-10 h-10" />
+                <h3 className="text-lg font-semibold text-center">{service.title}</h3>
+                <p className="text-sm text-center px-2">{service.desc}</p>
+              </div>
+            ))}
+
+            {/* Add Service Button as a Card */}
+            {/* <div className="bg-[#212121] rounded-[16px] flex justify-center items-center cursor-pointer p-4 h-[175px]"> */}
+              <img src={addserviceimg} alt="add" className="w-[120px] h-[50px]" />
+            {/* </div> */}
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 

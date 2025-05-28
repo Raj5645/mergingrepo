@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../common/Sidebar";
+import Header from "../common/header2";
 
 const tabList = [
   { label: "Attendees" },
@@ -84,6 +85,7 @@ const Notifications = () => {
       </div>
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <Header/>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative flex flex-col mx-auto p-8" style={{ width: 1198, height: 722, background: "rgba(255,255,255,0.05)", borderRadius: 24 }}>
             {/* Top Row */}

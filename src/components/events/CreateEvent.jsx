@@ -268,7 +268,7 @@ const CreateEvent = () => {
           </div>
           <div className="w-1/2">
             <label className="block mb-1 font-medium">Event Location</label>
-           <div className="w-full">
+            {/* <div className="w-full">
   <gmpx-place-autocomplete
     ref={autocompleteRef}
     id="event-location"
@@ -286,18 +286,17 @@ const CreateEvent = () => {
       boxSizing: 'border-box',
     }}
   />
-</div>
+</div> */}
 
-
-            {/* <input
-  type="text"
-  name="location"
-  placeholder="Start typing city..."
-  ref={locationInputRef}
-  value={form.location}
-  onChange={handleChange}
-  className="w-full p-2 rounded border border-white bg-[#1E1E1E] text-[#717480] placeholder-[#464646]"
-/> */}
+            <input
+              type="text"
+              name="location"
+              placeholder="Start typing city..."
+              ref={locationInputRef}
+              value={form.location}
+              onChange={handleChange}
+              className="w-full p-2 rounded border border-white bg-[#1E1E1E] text-[#717480] placeholder-[#464646]"
+            />
           </div>
         </div>
 
@@ -313,7 +312,7 @@ const CreateEvent = () => {
                 name={field}
                 value={form[field]}
                 onChange={handleChange}
-                className="w-full p-2 pr-10 rounded border border-white bg-white text-black placeholder-[#464646] appearance-none"
+                className="w-full p-2 pr-10 rounded border border-white bg-[#1E1E1E] text-[#717480] placeholder-[#464646] appearance-none"
               />
               <FaCalendarAlt
                 className="absolute top-9 right-3 text-black pointer-events-none"
