@@ -20,7 +20,7 @@
 
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
-    
+
 //     const newEvent = {
 //       id: Date.now().toString(),
 //       title: form.title,
@@ -33,7 +33,6 @@
 //       lastEdited: new Date().toLocaleString(),
 //     };
 //     setSuccess(true);
-    
 
 //     // const authCheck = async () => {
 //     //   try {
@@ -51,7 +50,7 @@
 //     //       console.log('Authorized data:', data);
 //     //       // Use the authorized data
 //     //       navigate('/eventdemo');
-//     //     } else { 
+//     //     } else {
 //     //       // Unauthorized access
 //     //       console.log('Unauthorized access');
 //     //       // localStorage.removeItem('token');
@@ -63,7 +62,6 @@
 //     // };
 
 //     // authCheck();
-
 
 //     navigate('/events', { state: { newEvent } });
 //   };
@@ -156,17 +154,7 @@
 
 // export default CreateEvent;
 
-
-
-
-
-
-
-
-
-
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCalendarAlt, FaTimes } from 'react-icons/fa';
 
@@ -182,15 +170,34 @@ const CreateEvent = () => {
 
   const [thumbnail, setThumbnail] = useState(null);
   const fileInputRef = useRef(null);
+  const locationInputRef = useRef(null);
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
 
+  const autocompleteRef = useRef(null);
+
+  useEffect(() => {
+    const el = autocompleteRef.current;
+    if (!el) return;
+
+    const handler = (event) => {
+      // event.target.value is the address string
+      // event.target.gmpxPlace is the full place object
+      setForm((prev) => ({
+        ...prev,
+        location: event.target.value,
+      }));
+    };
+
+    el.addEventListener('gmpx-placeautocomplete-placechange', handler);
+
+    return () => {
+      el.removeEventListener('gmpx-placeautocomplete-placechange', handler);
+    };
+  }, []);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleDateClick = (refName) => {
-    document.getElementsByName(refName)[0].showPicker();
   };
 
   const handleThumbnailUpload = (e) => {
@@ -261,47 +268,59 @@ const CreateEvent = () => {
           </div>
           <div className="w-1/2">
             <label className="block mb-1 font-medium">Event Location</label>
-            <input
-              type="text"
-              name="location"
-              placeholder="Location"
-              value={form.location}
-              onChange={handleChange}
-              className="w-full p-2 rounded border border-white bg-[#1E1E1E] text-[#717480] placeholder-[#464646]"
-            />
+           <div className="w-full">
+  <gmpx-place-autocomplete
+    ref={autocompleteRef}
+    id="event-location"
+    country="IN"
+    placeholder="Start typing city..."
+    style={{
+      width: '100%',
+      height: '40px',
+      border: '1px solid white',
+      borderRadius: '6px',
+      backgroundColor: '#1E1E1E',
+      color: '#717480',
+      padding: '8px 12px',
+      fontSize: '16px',
+      boxSizing: 'border-box',
+    }}
+  />
+</div>
+
+
+            {/* <input
+  type="text"
+  name="location"
+  placeholder="Start typing city..."
+  ref={locationInputRef}
+  value={form.location}
+  onChange={handleChange}
+  className="w-full p-2 rounded border border-white bg-[#1E1E1E] text-[#717480] placeholder-[#464646]"
+/> */}
           </div>
         </div>
 
         {/* Start & End Date */}
         <div className="mb-4 flex gap-4">
-          <div className="w-1/2 relative">
-            <label className="block mb-1 font-medium">Start Date</label>
-            <input
-              type="date"
-              name="startDate"
-              value={form.startDate}
-              onChange={handleChange}
-              className="w-full p-2 pr-10 rounded border border-white bg-[#1E1E1E] text-[#717480] placeholder-[#464646] appearance-none"
-            />
-            <FaCalendarAlt
-              className="absolute top-9 right-3 text-white cursor-pointer"
-              onClick={() => handleDateClick('startDate')}
-            />
-          </div>
-          <div className="w-1/2 relative">
-            <label className="block mb-1 font-medium">End Date</label>
-            <input
-              type="date"
-              name="endDate"
-              value={form.endDate}
-              onChange={handleChange}
-              className="w-full p-2 pr-10 rounded border border-white bg-[#1E1E1E] text-[#717480] placeholder-[#464646] appearance-none"
-            />
-            <FaCalendarAlt
-              className="absolute top-9 right-3 text-white cursor-pointer"
-              onClick={() => handleDateClick('endDate')}
-            />
-          </div>
+          {['startDate', 'endDate'].map((field) => (
+            <div key={field} className="w-1/2 relative">
+              <label className="block mb-1 font-medium">
+                {field === 'startDate' ? 'Start Date' : 'End Date'}
+              </label>
+              <input
+                type="date"
+                name={field}
+                value={form[field]}
+                onChange={handleChange}
+                className="w-full p-2 pr-10 rounded border border-white bg-white text-black placeholder-[#464646] appearance-none"
+              />
+              <FaCalendarAlt
+                className="absolute top-9 right-3 text-black pointer-events-none"
+                size={18}
+              />
+            </div>
+          ))}
         </div>
 
         {/* Upload Thumbnail */}
@@ -330,18 +349,20 @@ const CreateEvent = () => {
         <div className="mb-6">
           <label className="block mb-2 font-medium">Type of event</label>
           <div className="flex flex-wrap gap-4">
-            {['Concert', 'Festival', 'Meetup', 'Open Mic', 'Campus Event', 'EDM'].map((category) => (
-              <label key={category} className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="eventCategory"
-                  value={category}
-                  onChange={handleChange}
-                  className="accent-[#717480]"
-                />
-                <span>{category}</span>
-              </label>
-            ))}
+            {['Concert', 'Festival', 'Meetup', 'Open Mic', 'Campus Event', 'EDM'].map(
+              (category) => (
+                <label key={category} className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="eventCategory"
+                    value={category}
+                    onChange={handleChange}
+                    className="accent-[#717480]"
+                  />
+                  <span>{category}</span>
+                </label>
+              )
+            )}
           </div>
         </div>
 
@@ -358,9 +379,7 @@ const CreateEvent = () => {
         </div>
 
         {success && (
-          <p className="mt-4 text-green-400 text-center font-medium">
-            Event created successfully!
-          </p>
+          <p className="mt-4 text-green-400 text-center font-medium">Event created successfully!</p>
         )}
       </div>
     </div>
@@ -368,4 +387,3 @@ const CreateEvent = () => {
 };
 
 export default CreateEvent;
-

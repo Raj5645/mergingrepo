@@ -109,7 +109,7 @@ const HeroContent = () => {
   const handleCloseOverlay = () => setShowOverlay(false);
 
   return (
-    <div className="absolute inset-0 h-screen flex font-ruda pt-[85px]">
+    <div className="absolute inset-0 h-screen flex font-ruda pt-[85px] justify-center md:justify-between">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -122,8 +122,8 @@ const HeroContent = () => {
 
       {/* Left side - Hero content */}
       <div
-        className={`flex flex-col items-center justify-center transition-all duration-500 ease-in-out ${
-          showOverlay ? 'w-1/2 pl-8' : 'w-full'
+        className={`flex flex-col items-center justify-center text-center transition-all duration-500 ease-in-out px-4 ${
+          showOverlay ? 'md:w-1/2 md:pl-8' : 'w-full'
         }`}
       >
         <img
@@ -132,11 +132,10 @@ const HeroContent = () => {
           className="w-[280px] h-[120px] mb-2"
         />
         <div className="text-[#22e6ce] text-lg font-medium mb-1">An ecosystem for events</div>
-        <h1 className="text-[32px] font-semibold text-white text-center mb-8">
+        <h1 className="text-[28px] md:text-[32px] font-semibold text-white mb-8">
           Beyond Tickets. Built for Impact.
         </h1>
 
-        {/* Get Started Button */}
         {!showOverlay && (
           <button
             onClick={handleGetStarted}
@@ -161,54 +160,23 @@ const HeroContent = () => {
       {/* Right side - Login/Signup Form */}
       <div
         className={`transition-all duration-500 ease-in-out ${
-          showOverlay ? 'w-1/2 translate-x-0' : 'w-0 translate-x-full overflow-hidden'
-        }`}
+          showOverlay ? 'md:w-1/2 translate-x-0' : 'md:w-0 md:translate-x-full overflow-hidden'
+        } w-full md:block`}
       >
         {showOverlay && (
-          <div className="h-full flex items-center justify-center p-8">
-            {/* Form container with blur and transparency */}
-            <div className="relative z-10 w-full max-w-md p-8">
-              {/* Close button */}
+          <div className="h-full flex items-center justify-center p-4 md:p-8">
+            <div className="relative z-10 w-full max-w-md p-6 bg-transparent border border-white/30 rounded-xl shadow-lg">
               <button
                 className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300 transition"
                 onClick={handleCloseOverlay}
               >
                 ×
               </button>
-
-              {/* Tab headers */}
-              {/* <div className="flex mb-6 border-b border-white/20">
-                <button
-                  className={`flex-1 pb-3 text-xl font-bold uppercase transition ${
-                    activeTab === 'login'
-                      ? 'text-white border-b-2 border-white'
-                      : 'text-gray-400'
-                  }`}
-                  onClick={() => setActiveTab('login')}
-                >
-                  Login
-                </button>
-                <button
-                  className={`flex-1 pb-3 text-xl font-bold uppercase transition ${
-                    activeTab === 'signup'
-                      ? 'text-white border-b-2 border-white'
-                      : 'text-gray-400'
-                  }`}
-                  onClick={() => setActiveTab('signup')}
-                >
-                  Sign Up
-                </button>
-              </div> */}
-
-              {/* Form Content */}
-            <div className="relative z-10 w-full max-w-md p-8 bg-transparent border border-white/30 rounded-xl shadow-lg">
-  {/* Close button and tabs */}
-  {activeTab === 'login' ? (
-    <LoginForm setActiveTab={setActiveTab} />
-  ) : (
-    <SignupForm setActiveTab={setActiveTab} />
-  )}
-</div>
+              {activeTab === 'login' ? (
+                <LoginForm setActiveTab={setActiveTab} />
+              ) : (
+                <SignupForm setActiveTab={setActiveTab} />
+              )}
             </div>
           </div>
         )}

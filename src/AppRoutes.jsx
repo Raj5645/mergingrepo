@@ -12,7 +12,7 @@ import Notifications from './components/notification/Notifications';
 import Outreach from './components/outreach/Outreach';
 import Ticketing from './components/ticketing/Ticketing';
 import PublishedEvent from './components/publishedevent/PublishedEvent';
-import Support from './components/support/Support';
+import Services from './components/service/Services';
 import ContactUs from './components/common/ContactUs';
 import LoginForm from './components/home/LoginForm';
 import SignupForm from './components/home/SignupForm';
@@ -39,7 +39,7 @@ class AppRoutes extends React.Component {
           <Route path="/outreach" element={<Outreach/>}/>
           <Route path="/notifications" element={<Notifications/>}/>
           <Route path="/publishedevent" element={<PublishedEvent/>}/>
-          <Route path="/support"  element={<Support/>}/>
+          <Route path="/service"  element={<Services/>}/>
           <Route path="/contactus" element={<ContactUs />} />
         </Routes>
       </Router>

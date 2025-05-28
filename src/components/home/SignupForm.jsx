@@ -184,39 +184,161 @@
 
 // export default SignupForm;
 
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import callimg from "./icons/call.png";
-import fbimg from "./icons/fb.png";
-import googleimg from "./icons/google.png";
+import callimg from './icons/call.png';
+import fbimg from './icons/fb.png';
+import googleimg from './icons/google.png';
+
+const passwordStrength = (password) => {
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[a-z]/.test(password)) score++;
+  if (/\d/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+  if (score <= 2) return 'Weak';
+  if (score <= 4) return 'Medium';
+  return 'Strong';
+};
 
 const SignupForm = ({ setActiveTab }) => {
+  // const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState('');
+  const [strength, setStrength] = useState('');
+  const [signupError, setSignupError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+  const handlePasswordChange = (val) => {
+    setPassword(val);
+    setStrength(passwordStrength(val));
+    setPasswordMatch(val === confirm ? 'match' : confirm ? 'no-match' : '');
+  };
+
+  const handleConfirmChange = (val) => {
+    setConfirm(val);
+    setPasswordMatch(password === val ? 'match' : val ? 'no-match' : '');
+  };
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    navigate('/otppage');
+    setSignupError('');
+
+    // if (!username) {
+    //   setSignupError('Username is required');
+    //   return;
+    // }
+
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email');
+      return;
+    }
+
+    if (password !== confirm) {
+      setSignupError('Passwords do not match');
+      return;
+    }
+
+    // if (passwordStrength(password) === 'Weak') {
+    //   setSignupError('Password is too weak');
+    //   return;
+    // }
+
+    setLoading(true);
+
+    const now = new Date().toISOString();
+
+    const submitBody = {
+      userId: 0,
+      password: password,
+      userEmail: email,
+      roles: ["user"],
+      createdAt: now,
+      updatedAt: now,
+      deletedAt: null,
+      active: true,
+    };
+
+    try {
+      const res = await fetch('/api/user/users/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(submitBody),
+      });
+
+      if(!res.ok){
+        console.log("response not fetched in signupform");
+        setSignupError('Signup failed');
+        return ;
+      }
+      const data = await res.json();
+
+      if(!data)
+      {
+         console.log("data not received in signupform");
+         return ;
+      }
+
+      console.log("data received is:", data);
+      console.log("token is:", data.data.token);
+
+      navigate('/otppage');
+
+      // if (res.ok) {
+      //   const data = await res.json();
+      //   if (data && data.token) {
+      //     localStorage.setItem('token', data.token);
+      //     navigate('/otppage');
+      //   } else {
+      //     setSignupError('Token not received');
+      //   }
+      // } else {
+      //   setSignupError('Signup failed');
+      // }
+    } catch (err) {
+      setSignupError('Network error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <form className="w-full" onSubmit={handleSignup}>
       <h2 className="text-white text-3xl font-bold mb-8">SIGN UP</h2>
       <div className="space-y-4">
+        {/* <div>
+          <label className="block text-white text-sm font-medium mb-2">Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+            className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 border border-white/20 focus:border-[#22e6ce] focus:outline-none transition"
+            placeholder="Your name"
+          />
+        </div> */}
+
         <div>
           <label className="block text-white text-sm font-medium mb-2">Email</label>
           <input
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError('');
+            }}
             required
-            className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 border border-white/20 focus:border-[#22e6ce] focus:outline-none transition"
+            className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 border border-white/20 focus:border-[#22e6ce] focus:outline-none transition"
             placeholder="username@gmail.com"
           />
+          {emailError && <p className="text-red-500 text-xs">{emailError}</p>}
         </div>
 
         <div>
@@ -224,11 +346,18 @@ const SignupForm = ({ setActiveTab }) => {
           <input
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => handlePasswordChange(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 border border-white/20 focus:border-[#22e6ce] focus:outline-none transition"
+            className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 border border-white/20 focus:border-[#22e6ce] focus:outline-none transition"
             placeholder="Password"
           />
+          {strength && (
+            <p
+              className={`text-xs mt-1 ${strength === 'Strong' ? 'text-green-500' : strength === 'Medium' ? 'text-yellow-400' : 'text-red-500'}`}
+            >
+              Password strength: {strength}
+            </p>
+          )}
         </div>
 
         <div>
@@ -236,12 +365,18 @@ const SignupForm = ({ setActiveTab }) => {
           <input
             type="password"
             value={confirm}
-            onChange={e => setConfirm(e.target.value)}
+            onChange={(e) => handleConfirmChange(e.target.value)}
             required
-            className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 border border-white/20 focus:border-[#22e6ce] focus:outline-none transition"
-            placeholder="Password"
+            className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 border border-white/20 focus:border-[#22e6ce] focus:outline-none transition"
+            placeholder="Confirm Password"
           />
+          {passwordMatch === 'match' && <p className="text-green-500 text-xs">Passwords match</p>}
+          {passwordMatch === 'no-match' && (
+            <p className="text-red-500 text-xs">Passwords do not match</p>
+          )}
         </div>
+
+        {signupError && <p className="text-red-500 text-xs">{signupError}</p>}
 
         <button
           type="submit"
@@ -258,27 +393,32 @@ const SignupForm = ({ setActiveTab }) => {
         </div>
 
         <div className="flex justify-center gap-4">
-          <button type="button" className="w-12 h-12 bg-white rounded-lg shadow flex items-center justify-center hover:bg-gray-100 transition">
-            <img src={googleimg} alt="fb-img"/>
+          <button
+            type="button"
+            className="w-12 h-12 bg-white rounded-lg shadow flex items-center justify-center hover:bg-gray-100 transition"
+          >
+            <img src={googleimg} alt="google-img" />
           </button>
-          <button type="button" className="w-12 h-12 bg-white rounded-lg shadow flex items-center justify-center hover:bg-gray-100 transition">
-           <img src={callimg} alt="fb-img"/>
+          <button
+            type="button"
+            className="w-12 h-12 bg-white rounded-lg shadow flex items-center justify-center hover:bg-gray-100 transition"
+          >
+            <img src={callimg} alt="call-img" />
           </button>
-          <button type="button" className="w-12 h-12 bg-white rounded-lg shadow flex items-center justify-center hover:bg-gray-100 transition">
-            <img src={fbimg} alt="fb-img"/>
+          <button
+            type="button"
+            className="w-12 h-12 bg-white rounded-lg shadow flex items-center justify-center hover:bg-gray-100 transition"
+          >
+            <img src={fbimg} alt="fb-img" />
           </button>
         </div>
 
         <div className="text-white/80 text-sm text-center">
-        Already a user?
-        <button
-          type="button"
-          // className="text-[#22e6ce] font-semibold underline ml-1"
-          onClick={() => setActiveTab('login')}
-        >
-          <span class="p-2 underline">LOGIN</span>
-        </button>
-      </div>
+          Already a user?
+          <button type="button" onClick={() => setActiveTab('login')}>
+            <span className="p-2 underline">LOGIN</span>
+          </button>
+        </div>
       </div>
     </form>
   );

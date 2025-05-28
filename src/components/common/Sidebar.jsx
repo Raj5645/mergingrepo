@@ -113,7 +113,7 @@ const Sidebar = () => {
     { icon: "/images/img_tablermessage.svg", label: "Notifications", path: "/notifications" },
     { icon: "/images/img_fluentlearningapp20regular.svg", label: "Published Event", path: "/publishedevent" },
     { icon: "/images/img_stashinvoice.svg", label: "Billing & Invoice", path: "/billing" },
-    { icon: "/images/img_materialsymbolslightdesignservices.svg", label: "Services", path: "/support" },
+    { icon: "/images/img_materialsymbolslightdesignservices.svg", label: "Services", path: "/service" },
     { icon: "/images/img_riquery.svg", label: "Query", path: "/query" }
   ];
 
