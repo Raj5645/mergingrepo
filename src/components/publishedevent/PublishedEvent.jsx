@@ -1,17 +1,19 @@
 import React from "react";
 import Sidebar from "../common/Sidebar";
+import Header from "../common/header2";
 
 const themeBlue = "bg-gradient-to-r from-[#22e6ce] to-[#3479ff]";
 
 const PublishedEvent = () => {
   return (
-    <div className="min-h-screen flex bg-gradient-to-b pt-[85px] from-[#232323] to-black text-white font-['Inter','Poppins',sans-serif]">
+    <div className="min-h-screen flex  pt-[85px] bg-black text-white font-['Inter','Poppins',sans-serif]">
       {/* Sidebar */}
-      <div className="w-[220px] min-h-screen bg-[#171717]">
+      <div className="w-[220px] min-h-screen bg-black">
         <Sidebar />
       </div>
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <Header/>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative flex flex-col mx-auto p-8" style={{ width: 1198, height: 722, background: "rgba(255,255,255,0.05)", borderRadius: 24 }}>
             {/* Top Left Title */}

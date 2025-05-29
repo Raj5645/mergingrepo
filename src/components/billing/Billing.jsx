@@ -157,19 +157,18 @@ const Billing = () => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-b pt-[85px] from-[#232323] to-black text-white font-['Inter','Poppins',sans-serif]">
-      {/* Sidebar */}
-      <div className="hidden md:block w-[220px] min-h-screen bg-[#171717]">
-        <Sidebar />
-      </div>
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8">
-        <Header />
-        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
-          {/* Left: Invoice Section */}
-          <div className="flex-1">
-            <div className="rounded-2xl p-6 md:p-8 bg-[#212121] shadow-lg relative">
-              {/* Title & Paid Date */}
+  <div className="min-h-screen bg-black flex pt-[75px] text-white font-['Inter','Poppins',sans-serif]">
+  {/* Sidebar */}
+  <div className="hidden md:block w-[220px] h-full bg-black">
+    <Sidebar />
+  </div>
+  {/* Main Content */}
+  <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8">
+    <Header />
+    <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
+      {/* Left: Invoice Section */}
+      <div className="flex-1">
+        <div className="rounded-2xl p-6 md:p-8 bg-[#212121] shadow-lg relative">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <div className="font-bold text-2xl sm:text-3xl mb-1">Billing & Invoice</div>

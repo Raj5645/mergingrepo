@@ -207,7 +207,7 @@ export default function Ticketing() {
 
   return (
     <div className="min-h-screen flex bg-black text-white font-[Ruda,sans-serif] pt-[85px]">
-      <div className="w-[220px] min-h-screen bg-[#171717]">
+      <div className="w-[220px] min-h-screen bg-black">
         <Sidebar />
       </div>
       <div className="flex-1 flex flex-col items-center p-8">

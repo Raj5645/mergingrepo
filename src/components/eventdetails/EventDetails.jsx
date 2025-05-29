@@ -73,9 +73,9 @@ const EventDetails = () => {
 
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-b pt-[85px] from-[#171717] to-black text-white font-['Inter','Poppins',sans-serif]">
+    <div className="min-h-screen flex bg-black pt-[85px] text-white font-['Inter','Poppins',sans-serif]">
       {/* Sidebar */}
-      <div className="w-[220px] min-h-screen bg-[#171717]">
+      <div className="w-[220px] min-h-screen bg-black">
         <Sidebar />
       </div>
       {/* Main Content */}

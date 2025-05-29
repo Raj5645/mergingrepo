@@ -100,7 +100,7 @@ const Services = () => {
    <div className="min-h-screen bg-black text-white font-['Inter','Poppins',sans-serif]">
   <div className="flex pt-[85px] min-h-screen">
     {/* Sidebar */}
-    <div className="w-[220px] min-h-screen bg-[#171717] hidden lg:block">
+    <div className="w-[220px] min-h-screen bg-black hidden lg:block">
       <Sidebar />
     </div>
 
