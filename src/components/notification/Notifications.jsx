@@ -1,130 +1,158 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../common/Sidebar";
 import Header from "../common/header2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faWhatsapp,
+  faGoogle,
+  faMicrosoft
+} from "@fortawesome/free-brands-svg-icons";
 
-const tabList = [
-  { label: "Attendees" },
-  { label: "Sponsors" },
-  { label: "Organisers" }
-];
+const tabList = ["Attendees", "Sponsors", "Organiser"];
 
-const notificationTypes = [
-  {
-    heading: "TICKET CONFIRMATION",
-    sub: "To be sent once the ticket is confirmed"
-  },
-  {
-    heading: "TICKET CANCELLED",
-    sub: "To be sent once the ticket is cancelled"
-  },
-  {
-    heading: "PAYMENT FAILED",
-    sub: "To be sent if payment fails"
-  },
-  {
-    heading: "EVENT REMINDER",
-    sub: "To be sent as a reminder before the event"
-  }
-];
+const notificationData = {
+  Attendees: [
+    {
+      section: "Registrations",
+      notifications: [{ title: "Event Ticket Confirmation", description: "Send this email once the ticket is confirmed." }]
+    },
+    {
+      section: "Cancellations",
+      notifications: [{ title: "Ticket Cancellation", description: "Send this email once the ticket is cancelled." }]
+    },
+    {
+      section: "Payment Failed",
+      notifications: [{ title: "Payment Failed!", description: "Send this email when payment fails." }]
+    },
+    {
+      section: "Event Reminder",
+      notifications: [{ title: "Event Reminder", description: "Send this email in case of any updates or just reminder." }]
+    }
+  ],
+  Sponsors: [
+    {
+      section: "Sponsorship Confirmed",
+      notifications: [{ title: "Sponsorship Confirmed", description: "Send this email once sponsorship is confirmed." }]
+    },
+    {
+      section: "Sponsorship Invoice",
+      notifications: [{ title: "Invoice Sent", description: "Send invoice details to the sponsor." }]
+    }
+  ],
+  Organiser: [
+    {
+      section: "Setup Reminder",
+      notifications: [{ title: "Event Setup Reminder", description: "Remind organisers about event setup." }]
+    },
+    {
+      section: "Staff Allocation",
+      notifications: [{ title: "Staff Assigned", description: "Send updates on staff allocation." }]
+    },
+    {
+      section: "Final Checklist",
+      notifications: [{ title: "Checklist Sent", description: "Share final checklist before event." }]
+    }
+  ]
+};
 
-const iconPaths = [
-  "/images/img_whatsapp.svg",
-  "/images/img_gmail.svg",
-  "/images/img_message.svg"
+const iconList = [
+  { icon: faWhatsapp, label: "WhatsApp" },
+  { icon: faGoogle, label: "Gmail" },
+  { icon: faMicrosoft, label: "Outlook" }
 ];
 
 const Notifications = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [toggles, setToggles] = useState(
-    Array(4).fill([true, false, false]) // 4 notification types, 3 toggles each
-  );
+  const [toggles, setToggles] = useState([]);
+
+  const currentTab = tabList[selectedTab];
+  const currentNotifications = notificationData[currentTab];
+  const flatNotifications = currentNotifications.flatMap((group) => group.notifications);
+
+  useEffect(() => {
+    setToggles(flatNotifications.map(() => [true, true, true]));
+  }, [selectedTab]);
 
   const handleToggle = (notifIdx, toggleIdx) => {
-    setToggles(toggles.map((row, i) =>
-      i === notifIdx ? row.map((val, j) => j === toggleIdx ? !val : val) : row
-    ));
+    setToggles((prev) =>
+      prev.map((row, i) =>
+        i === notifIdx
+          ? row.map((val, j) => (j === toggleIdx ? !val : val))
+          : row
+      )
+    );
   };
 
-
-  // useEffect(()=>{
-
-  //   const getData = async () =>{
-
-  //     try {
-  //       const response = await fetch("",{
-  //         method:"GET",
-  //         headers:{
-  //           "Content-Type": "apllication/json";
-  //         },
-  //         body: JSON.stringify();
-  //       });
-
-  //       if(!response.ok)
-  //       {
-  //          console.log("in metrics response  not fetched");
-  //          return ;
-  //       }
-
-
-  //     } catch (error) {
-  //       console.log("error in metricsection is:", error);
-  //     }
-  // getData();
-
-  //   }
-
-
-  // },[]);
-
+  // Fill with empty objects to make total 4 cards
+  const displayNotifications = [...currentNotifications];
+  while (displayNotifications.length < 4) {
+    displayNotifications.push(null);
+  }
 
   return (
-    <div className="min-h-screen flex bg-black pt-[85px] text-white font-['Inter','Poppins',sans-serif]">
-      {/* Sidebar */}
-      <div className="w-[220px] min-h-screen bg-[#black]">
+    <div className="min-h-screen flex bg-[#0b0b0b] text-white font-inter">
+      <div className="w-[220px] bg-[#171717]">
         <Sidebar />
       </div>
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center p-8">
-        <Header/>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative flex flex-col mx-auto p-8" style={{ width: 1198, height: 722, background: "rgba(255,255,255,0.05)", borderRadius: 24 }}>
-            {/* Top Row */}
-            <div className="flex justify-between items-center mb-8" style={{ height: 40 }}>
-              <div className="font-bold uppercase" style={{ fontSize: 28.11, width: 210.67 }}>NOTIFICATIONS</div>
-              <div className="flex rounded-lg overflow-hidden bg-[#232323] border border-[#3479ff]" style={{ width: 436, height: 40 }}>
+
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header />
+        <div className="flex flex-col items-center bg-[#1a1a1a] text-white font-inter h-[100vh] overflow-hidden">
+          <div className="w-full max-w-[900px] px-4 py-2 h-full flex flex-col">
+            {/* Title & Tabs */}
+            <div className="flex justify-between items-center mb-2">
+              <h1 className="text-lg font-semibold">Notifications</h1>
+              <div className="flex bg-[#232323] border border-[#3479ff] rounded-md overflow-hidden text-xs">
                 {tabList.map((tab, idx) => (
                   <button
-                    key={tab.label}
-                    className={`flex-1 font-bold uppercase text-base transition-all ${selectedTab === idx ? 'bg-gradient-to-r from-[#22e6ce] to-[#3479ff] text-white' : 'text-gray-300 hover:bg-[#3479ff] hover:text-white'}`}
-                    style={{ height: 40 }}
+                    key={idx}
+                    className={`px-3 py-1 font-semibold ${
+                      selectedTab === idx
+                        ? "bg-gradient-to-r from-[#22e6ce] to-[#3479ff] text-white"
+                        : "text-gray-400 hover:bg-[#2a2a2a]"
+                    }`}
                     onClick={() => setSelectedTab(idx)}
                   >
-                    {tab.label}
+                    {tab}
                   </button>
                 ))}
               </div>
             </div>
-            {/* Notification Settings Box */}
-            <div className="mx-auto bg-[#232323] bg-opacity-80 rounded-xl p-6 flex flex-col gap-6" style={{ width: 1114, height: 570 }}>
-              {notificationTypes.map((notif, notifIdx) => (
-                <div key={notif.heading} className="flex items-center justify-between bg-white bg-opacity-5 rounded-lg px-8 py-6" style={{ height: 570/4 }}>
-                  <div className="flex flex-col">
-                    <span className="font-bold text-lg mb-1">{notif.heading}</span>
-                    <span className="text-sm text-gray-300">{notif.sub}</span>
+
+            {/* Grid */}
+            <div className="grid gap-3 flex-1" style={{ gridTemplateRows: "repeat(4, 1fr)" }}>
+              {displayNotifications.map((group, groupIdx) => {
+                if (!group) {
+                  return <div key={groupIdx} className="bg-transparent rounded-lg" />;
+                }
+
+                const notif = group.notifications[0];
+                return (
+                  <div key={group.section} className="flex flex-col justify-between bg-[#1f1f1f] rounded-lg px-4 py-3">
+                    <div>
+                      <h2 className="text-[11px] text-gray-400 font-medium">{group.section}</h2>
+                      <div className="text-sm font-medium">{notif.title}</div>
+                      <div className="text-[10px] text-gray-400">{notif.description}</div>
+                    </div>
+                    <div className="flex gap-2 mt-2">
+                      {iconList.map((item, toggleIdx) => (
+                        <button
+                          key={toggleIdx}
+                          onClick={() => handleToggle(groupIdx, toggleIdx)}
+                          className={`w-6 h-6 flex items-center justify-center rounded-full border text-[9px] ${
+                            toggles[groupIdx]?.[toggleIdx]
+                              ? "bg-gradient-to-r from-[#22e6ce] to-[#3479ff] border-[#22e6ce]"
+                              : "bg-[#232323] border-[#555]"
+                          }`}
+                          title={item.label}
+                        >
+                          <FontAwesomeIcon icon={item.icon} className="text-[10px]" />
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex gap-6">
-                    {iconPaths.map((icon, toggleIdx) => (
-                      <button
-                        key={icon}
-                        onClick={() => handleToggle(notifIdx, toggleIdx)}
-                        className={`w-12 h-12 flex items-center justify-center rounded-full border-2 transition-colors ${toggles[notifIdx][toggleIdx] ? 'border-[#22e6ce] bg-gradient-to-r from-[#22e6ce] to-[#3479ff]' : 'border-gray-600 bg-[#232323]'}`}
-                      >
-                        <img src={icon} alt="toggle" className="w-6 h-6" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
