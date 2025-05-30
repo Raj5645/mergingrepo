@@ -2,7 +2,7 @@ import React from 'react';
 
 const EventBackground = () => {
   return (
-    <div className="relative w-full h-[799px] overflow-hidden">
+    <div className="relative w-full h-[799px]  pt-[85px] overflow-hidden">
       {/* First row */}
       <img src="/images/img_rectangle_464.png" alt="Event" className="absolute left-[23px] top-0 w-[258px] h-[201px] rounded-[6px] object-cover" />
       <img src="/images/img_rectangle_464_121x258.png" alt="Event" className="absolute left-[293px] top-0 w-[258px] h-[121px] rounded-[6px] object-cover" />
