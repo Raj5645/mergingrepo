@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Sidebar from '../common/Sidebar';
 import Header from '../common/Header';
 
@@ -13,7 +13,7 @@ const eventTypes = [
 
 const EventDetails = () => {
   const [selectedType, setSelectedType] = useState(null);
-  const [eventName, setEventName] = useState("LIVE AND LOUD"); // Example event name
+  const [eventName, setEventName] = useState("LIVE AND LOUD");
   const [eventMode, setEventMode] = useState("On Ground");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -23,12 +23,15 @@ const EventDetails = () => {
   const [artist, setArtist] = useState("");
   const [spotify, setSpotify] = useState("");
   const [gap, setGap] = useState("");
+  const [itineraryFile, setItineraryFile] = useState(null);
+  const [tcFile, setTcFile] = useState(null);
+  const itineraryInputRef = useRef(null);
+  const tcInputRef = useRef(null);
 
-  // Calculate gap between times
   React.useEffect(() => {
     if (startTime && endTime) {
-      const [sh, sm] = startTime.split(":").map(Number);
-      const [eh, em] = endTime.split(":").map(Number);
+      const [sh, sm] = startTime.split(":" ).map(Number);
+      const [eh, em] = endTime.split(":" ).map(Number);
       let diff = (eh * 60 + em) - (sh * 60 + sm);
       if (diff < 0) diff += 24 * 60;
       setGap(`${Math.floor(diff / 60)}h ${diff % 60}m`);
@@ -37,21 +40,25 @@ const EventDetails = () => {
     }
   }, [startTime, endTime]);
 
+  const handleItineraryBarClick = () => {
+    if (itineraryInputRef.current) itineraryInputRef.current.click();
+  };
+
+  const handleTcBarClick = () => {
+    if (tcInputRef.current) tcInputRef.current.click();
+  };
+
   return (
     <div className="min-h-screen flex bg-gradient-to-b from-[#171717] to-black text-white font-['Inter','Poppins',sans-serif]">
-      {/* Sidebar */}
       <div className="w-[220px] min-h-screen bg-[#171717]">
         <Sidebar />
       </div>
-      {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center">
         <Header />
         <div className="relative flex flex-col mx-auto p-8" style={{ width: "1198px", height: "742px", background: "rgba(255,255,255,0.05)", borderRadius: "24px" }}>
-          {/* Top Row */}
           <div className="flex justify-between items-start mb-4">
             <div className="font-bold uppercase" style={{ fontSize: "28.89px", width: "280px" }}>{eventName}</div>
             <div className="flex items-center gap-6">
-              {/* Dot Selectors */}
               <div className="flex items-center gap-4 mr-8">
                 {["On Ground", "Online", "Hybrid"].map((mode) => (
                   <button
@@ -64,22 +71,18 @@ const EventDetails = () => {
                   </button>
                 ))}
               </div>
-              {/* Publish Event Button */}
               <button style={{ width: "168px", height: "41px" }} className="bg-blue-600 rounded-lg text-white font-bold flex items-center justify-center shadow-lg">PUBLISH EVENT</button>
             </div>
           </div>
-          {/* Event Image Box */}
           <div className="relative mb-4" style={{ width: "1148px", height: "168px" }}>
             <img src="/images/img_rectangle_464.png" alt="Event" className="w-full h-full object-cover rounded-xl" />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-extrabold text-4xl uppercase text-white bg-black bg-opacity-40 px-8 py-2 rounded-xl tracking-widest">ENTERTAINMENT</span>
             </div>
           </div>
-          {/* About Event */}
           <div className="flex flex-col mb-2">
             <div className="font-bold text-lg mb-1">ABOUT EVENT (Describe your event)</div>
           </div>
-          {/* Description Input */}
           <textarea
             className="w-full rounded-lg bg-white bg-opacity-10 text-white p-4 mb-4 resize-none border border-gray-600"
             style={{ width: "1140px", height: "65.71px" }}
@@ -87,7 +90,6 @@ const EventDetails = () => {
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
-          {/* Event Details Row */}
           <div className="mb-4" style={{ width: "1140px", height: "109px" }}>
             <div className="flex gap-4 mb-2" style={{ height: "35px" }}>
               <div className="w-1/4 font-bold">Event Detail</div>
@@ -96,9 +98,7 @@ const EventDetails = () => {
               <div className="w-1/4 font-bold">Upload Itinerary</div>
             </div>
             <div className="flex gap-4">
-              {/* Event Detail (Date Picker) */}
               <input type="date" className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-gray-600" value={date} onChange={e => setDate(e.target.value)} />
-              {/* Event Timing (Clock) */}
               <div className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white flex flex-col justify-center items-center p-2 border border-gray-600 overflow-hidden">
                 <div className="flex flex-col w-full items-center justify-center">
                   <div className="flex items-center gap-2 w-full justify-center">
@@ -110,7 +110,6 @@ const EventDetails = () => {
                   {gap && <span className="mt-1 text-xs text-gray-300">Gap: {gap}</span>}
                 </div>
               </div>
-              {/* Venue (Location Suggestions) */}
               <input type="text" className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-gray-600" placeholder="Venue" value={venue} onChange={e => setVenue(e.target.value)} list="venue-suggestions" />
               <datalist id="venue-suggestions">
                 <option value="Delhi" />
@@ -119,11 +118,12 @@ const EventDetails = () => {
                 <option value="Chennai" />
                 <option value="Kolkata" />
               </datalist>
-              {/* Upload Itinerary (Documents) */}
-              <input type="file" accept=".pdf,.doc,.docx" className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-gray-600" />
+              <div className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-dashed border-[#22e6ce] flex items-center cursor-pointer" onClick={handleItineraryBarClick}>
+                <span className="flex-1">{itineraryFile ? itineraryFile.name : 'Click here to select itinerary file'}</span>
+                <input type="file" accept=".pdf,.doc,.docx" ref={itineraryInputRef} className="hidden" onChange={e => setItineraryFile(e.target.files[0])} />
+              </div>
             </div>
           </div>
-          {/* Type of Event */}
           <div className="flex flex-col mb-2">
             <div className="font-bold text-lg mb-1 uppercase">TYPE OF EVENT</div>
             <div className="flex gap-4 mb-4">
@@ -138,7 +138,6 @@ const EventDetails = () => {
               ))}
             </div>
           </div>
-          {/* Artist & Docs Row */}
           <div className="mb-4" style={{ width: "1140px", height: "109px" }}>
             <div className="flex gap-4 mb-2" style={{ height: "35px" }}>
               <div className="w-1/4 font-bold">Artist</div>
@@ -147,18 +146,17 @@ const EventDetails = () => {
               <div className="w-1/4 font-bold">Upload Itinerary</div>
             </div>
             <div className="flex gap-4">
-              {/* Artist Name */}
               <input type="text" className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-gray-600" placeholder="Artist Name" value={artist} onChange={e => setArtist(e.target.value)} />
-              {/* Spotify Link */}
               <input type="url" className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-gray-600" placeholder="Spotify Link" value={spotify} onChange={e => setSpotify(e.target.value)} />
-              {/* Upload T&C */}
-              <input type="file" accept=".pdf,.doc,.docx" className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-gray-600" />
-              {/* Upload Itinerary */}
-              <input type="file" accept=".pdf,.doc,.docx" className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-gray-600" />
+              <div className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-dashed border-[#22e6ce] flex items-center cursor-pointer" onClick={handleTcBarClick}>
+                <span className="flex-1">{tcFile ? tcFile.name : 'Click here to select T&C file'}</span>
+                <input type="file" accept=".pdf,.doc,.docx" ref={tcInputRef} className="hidden" onChange={e => setTcFile(e.target.files[0])} />
+              </div>
+              <div className="w-[288px] h-[58px] rounded-lg bg-white bg-opacity-10 text-white p-2 border border-dashed border-gray-500 flex items-center cursor-pointer" onClick={handleItineraryBarClick}>
+                <span className="flex-1">{itineraryFile ? itineraryFile.name : 'Click to upload itinerary again'}</span>
+              </div>
             </div>
           </div>
-          {/* Add Inter font from Google Fonts */}
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
         </div>
       </div>
     </div>
