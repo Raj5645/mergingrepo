@@ -15,7 +15,7 @@ import {
   Cell,
 } from "recharts";
 
-import { Users, Rocket, Activity } from "lucide-react"; // ✅ Replaced react-icons with lucide-react
+import { Users, Rocket, Activity } from "lucide-react"; 
 
 import Sidebar from "../common/Sidebar";
 import Header from "../common/header2";
