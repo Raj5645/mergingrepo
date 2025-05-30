@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -9,7 +9,7 @@ const Sidebar = () => {
     { 
       icon: "/images/img_sidashboardduotone.svg", 
       label: "Dashboard", 
-      path: "/dashboard" 
+      path: "/eventdashboard" 
     },
     { 
       icon: "/images/img_clarityeventline.svg", 
@@ -42,6 +42,11 @@ const Sidebar = () => {
       path: "/publishedevent" 
     },
     { 
+      icon: "/images/img_materialsymbolslightdesignservices.svg", 
+      label: "Services", 
+      path: "/services" 
+    },
+    { 
       icon: "/images/img_stashinvoice.svg", 
       label: "Billing", 
       path: "/billing" 
@@ -53,32 +58,40 @@ const Sidebar = () => {
     }
   ];
 
+  const activeClass = 'bg-gradient-to-r from-[#3479ff] to-[#22e6ce] text-white';
+  const inactiveClass = 'bg-[#191919] text-[#949494]';
+
   return (
-    <div className="bg-[#171717] w-[165px] h-full rounded-[12px] p-4 flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-[14px] font-[900] text-white font-['Ruda']">Live and Loud</h2>
-        <img src="/images/img_riexpandleftfill.svg" alt="Collapse" className="w-[14px] h-[14px]" />
-      </div>
-      
-      <div className="flex flex-col space-y-2">
-        {menuItems.map((item, index) => (
-          <Link 
-            key={index} 
-            to={item.path}
-            className={`flex items-center p-2 rounded-[6px] h-[31px] ${
-              isActive(item.path) 
-                ? 'bg-gradient-to-r from-[#3479ff] to-[#22e6ce]' 
-                : 'bg-[#191919] shadow-[0px_0px_12px_#0000000f]'
-            }`}
-          >
-            <img src={item.icon} alt={item.label} className="w-[18px] h-[18px]" />
-            <span className={`ml-2 text-[14px] font-medium font-['Ruda'] ${
-              isActive(item.path) ? 'text-white' : 'text-[#949494]'
-            }`}>
-              {item.label}
-            </span>
-          </Link>
-        ))}
+    <div className="flex flex-col items-center justify-start min-h-screen">
+      <div className="mx-auto my-8 w-[166px] h-[calc(100vh-64px)] bg-[#171717] rounded-2xl shadow-lg flex flex-col justify-start" style={{minWidth:'166px'}}>
+        <div className="flex items-center justify-between p-4">
+          <h2 className="text-[14px] font-[900] text-white font-['Ruda']">Live and Loud</h2>
+          <img src="/images/img_riexpandleftfill.svg" alt="Collapse" className="w-[14px] h-[14px]" />
+        </div>
+        
+        <div className="flex flex-col space-y-2">
+          <ul className="sidebar-list mt-24">
+            {menuItems.map((item, index) => (
+              <li key={index}>
+                <NavLink 
+                  to={item.path} 
+                  className={({ isActive }) => 
+                    isActive ? activeClass : inactiveClass
+                  }
+                >
+                  <div className="flex items-center p-2 rounded-[6px] h-[31px]">
+                    <img src={item.icon} alt={item.label} className="w-[18px] h-[18px]" />
+                    <span className={`ml-2 text-[14px] font-medium font-['Ruda'] ${
+                      isActive(item.path) ? 'text-white' : 'text-[#949494]'
+                    }`}>
+                      {item.label}
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
