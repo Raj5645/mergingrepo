@@ -65,4 +65,8 @@ class Support extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 export default Support;
+=======
+export default Support;
+>>>>>>> bc439efc369267bbdd6368316badf2c4fce519c3

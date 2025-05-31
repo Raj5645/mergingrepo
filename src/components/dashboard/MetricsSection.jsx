@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React, { useEffect, useState } from 'react';
+>>>>>>> bc439efc369267bbdd6368316badf2c4fce519c3
 import Card from '../common/Card';
 
 const MetricsSection = () => {
@@ -30,6 +34,45 @@ const MetricsSection = () => {
     }
   ];
 
+<<<<<<< HEAD
+=======
+  // const [metrics,setMetrics] = useState([]);
+
+  
+  // useEffect(()=>{
+
+  //   const getData = async () =>{
+
+  //     try {
+  //       const response = await fetch("",{
+  //         method:"GET",
+  //         headers:{
+  //           "Content-Type": "apllication/json";
+  //         },
+  //         body: JSON.stringify();
+  //       });
+
+  //       if(!response.ok)
+  //       {
+  //          console.log("in metrics response  not fetched");
+  //          return ;
+  //       }
+
+
+  //     } catch (error) {
+  //       console.log("error in metricsection is:", error);
+  //     }
+  // getData();
+
+  //   }
+
+
+  // },[]);
+
+
+
+
+>>>>>>> bc439efc369267bbdd6368316badf2c4fce519c3
   return (
     <div className="grid grid-cols-5 gap-4 mb-6">
       {metrics.map((metric, index) => (

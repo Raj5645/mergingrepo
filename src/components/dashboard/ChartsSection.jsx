@@ -7,10 +7,44 @@ const ChartsSection = () => {
   const registrationChartRef = useRef(null);
 
   // Simulate chart rendering with images from the design
+<<<<<<< HEAD
   useEffect(() => {
     // In a real implementation, you would use a charting library like Chart.js
     // For this example, we'll just display the images from the design
   }, []);
+=======
+ // useEffect(()=>{
+
+  //   const getData = async () =>{
+
+  //     try {
+  //       const response = await fetch("",{
+  //         method:"GET",
+  //         headers:{
+  //           "Content-Type": "apllication/json";
+  //         },
+  //         body: JSON.stringify();
+  //       });
+
+  //       if(!response.ok)
+  //       {
+  //          console.log("in metrics response  not fetched");
+  //          return ;
+  //       }
+
+
+  //     } catch (error) {
+  //       console.log("error in metricsection is:", error);
+  //     }
+
+  //   }
+
+  // getData();
+
+
+  // },[]);
+
+>>>>>>> bc439efc369267bbdd6368316badf2c4fce519c3
 
   return (
     <div className="grid grid-cols-12 gap-4">
@@ -134,7 +168,11 @@ const ChartsSection = () => {
             
             <div className="absolute left-[57px] top-0 grid grid-cols-4 gap-x-16 w-[290px]">
               <div className="flex flex-col items-center">
+<<<<<<< HEAD
                 <img src="/images/img_1.png" alt="Week 1 Chart" className="w-[61px] h-[147px]" />
+=======
+                <img src="" alt="Week 1 Chart" className="w-[61px] h-[147px]" />
+>>>>>>> bc439efc369267bbdd6368316badf2c4fce519c3
                 <p className="text-[13px] text-[#8a8a8a] font-['Ruda'] mt-2">Week 1</p>
               </div>
               <div className="flex flex-col items-center">
